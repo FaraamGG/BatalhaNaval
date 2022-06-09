@@ -55,7 +55,7 @@ public class IA {
                 for(Entry<String, Quadrado> entry : quadradosAlvos.entrySet()) {
 
                     if(entry.getValue().equals(quadrado)) {
-                        System.out.println(entry.getKey());
+                        //System.out.println(entry.getKey());
                     }
     
                 }
@@ -205,12 +205,12 @@ public class IA {
     public void mudarDirecaoInvertido(String direcao) {
 
         if(direcao.equals("up") || direcao.equals("down")) {
-            System.out.println("Mudou para horizontal");
+            //System.out.println("Mudou para horizontal");
             this.direcao = Direcao.HORIZONTAL;
         } 
 
         if(direcao.equals("left") || direcao.equals("right")) {
-            System.out.println("Mudou para vertical");
+            //System.out.println("Mudou para vertical");
             this.direcao = Direcao.VERTICAL;
         }
 

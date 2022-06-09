@@ -16,7 +16,8 @@ public class GridPlayer extends Grid{
     public void listarGrid() {
 
         System.out.println("     1     2     3     4     5     6     7     8     9     10");
-
+        System.out.println("  -------------------------------------------------------------");
+        
         for(Entry<String, Linha> entry : linhas.entrySet()) {
 
             System.out.print(entry.getKey() + " |");
@@ -42,10 +43,101 @@ public class GridPlayer extends Grid{
                 }
 
             }
-
+            
             System.out.println();
+            System.out.println("  -------------------------------------------------------------");
 
         }
+
+    }
+
+    public boolean listarPossibilidades(int coluna, int linha, Navio navio) {
+
+        int x = 1;
+        int tamanho = navio.getTamanho();
+        tamanho--;
+        Map<Integer, ArrayList<Quadrado>> possibilidades = new HashMap<>(); 
+        ArrayList<Quadrado> disponiveis = new ArrayList<>();
+
+        
+
+        if (tamanho == 0) {
+
+            disponiveis = checarDisponibilidade(coluna, coluna, linha, linha);
+            if(disponiveis != null) {
+                posicionarNavio(navio, disponiveis);
+                return true;
+            }
+
+        } else {
+
+            if ((coluna - tamanho) > 0) {
+                disponiveis = checarDisponibilidade(coluna-tamanho, coluna, linha, linha);
+                if (disponiveis != null) {
+
+                    System.out.printf("(%d) Esquerda%n", x);
+                    possibilidades.put(x,disponiveis);
+                    x++;
+
+                }
+                
+
+            }
+
+            if ((coluna + tamanho) < 10) {
+
+                disponiveis = checarDisponibilidade(coluna, coluna+tamanho, linha, linha);
+                if (disponiveis != null) {
+
+                    System.out.printf("(%d) Direita%n", x);
+                    
+                    possibilidades.put(x,disponiveis);
+                    x++;
+
+                }
+
+            }
+
+            if ((linha - tamanho) > 0) {
+
+                disponiveis = checarDisponibilidade(coluna, coluna, linha-tamanho, linha);
+                if (disponiveis != null) {
+
+                    System.out.printf("(%d) Cima%n", x);
+                    possibilidades.put(x,disponiveis);
+                    x++;
+
+                }
+
+            }
+
+            if ((linha + tamanho) < 10) {
+
+                disponiveis = checarDisponibilidade(coluna, coluna, linha, linha+tamanho);
+                if (disponiveis != null) {
+
+                    System.out.printf("(%d) Baixo%n", x);
+                    possibilidades.put(x,disponiveis);
+                    x++;
+                }
+
+            }
+
+            if (x > 1) {
+
+               // int opt = scan.nextInt();
+                //posicionarNavio(navio, possibilidades.get(opt));
+                escolherPossibilidade(navio, possibilidades);
+                return true;
+
+            } else {
+                System.out.println("Não há posição disponível");
+                return false;
+            }
+
+        }
+
+        return false;
 
     }
 
@@ -58,6 +150,7 @@ public class GridPlayer extends Grid{
             escolherLocalizacao(frota[i]);
         }
         
+        listarGrid();
     }
 
     
@@ -73,7 +166,7 @@ public class GridPlayer extends Grid{
 
         String linhaLetra;
         int linha;
-        int coluna;
+        int coluna = 0;
 
         do {
             
@@ -82,10 +175,30 @@ public class GridPlayer extends Grid{
             }
   
             System.out.println("Onde você deseja colocar o "+ navio.getNome()+"?");
-            System.out.print("Linha: ");
-            linhaLetra = scan.nextLine();
-            System.out.print("Coluna: ");
-            coluna = Integer.parseInt(scan.nextLine());
+            do {
+
+                System.out.print("Linha: ");
+                linhaLetra = scan.nextLine();
+
+            } while(!Converter.checarValidade(linhaLetra));
+            
+            boolean errado = true;
+
+            do {
+
+                try {
+
+                    System.out.print("Coluna: ");
+                    coluna = Integer.parseInt(scan.nextLine());
+                    errado = false;
+
+                } catch(Exception e) {
+
+                }
+
+            } while (errado && coluna < 1 && coluna > 10);
+            
+            
             
             //scan.skip("[\r\n]+");
             linha = Converter.stringToInt(linhaLetra);

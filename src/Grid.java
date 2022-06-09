@@ -30,12 +30,12 @@ public class Grid {
 
     public boolean quadradoFoiAtingido(String linha, int coluna) {
 
-        return getQuadrado(linha, coluna).getAtingido();
+        return getQuadrado(Converter.intToStringUp(Converter.stringToInt(linha)-1), coluna).getAtingido();
 
     }
 
     public Quadrado getQuadrado(String linha, int coluna) {
-        return linhas.get(linha).getQuadrados().get(coluna-1);
+        return linhas.get(Converter.intToStringUp(Converter.stringToInt(linha)-1)).getQuadrados().get(coluna-1);
     }
 
     public void listarGrid() {
@@ -46,7 +46,7 @@ public class Grid {
 
     public void atirar(String linha, int coluna) {
 
-        linhas.get(linha).getQuadrados().get(coluna-1).atingir();
+        linhas.get(Converter.intToStringUp(Converter.stringToInt(linha)-1)).getQuadrados().get(coluna-1).atingir();
 
     }
 
@@ -88,7 +88,7 @@ public class Grid {
                 disponiveis = checarDisponibilidade(coluna-tamanho, coluna, linha, linha);
                 if (disponiveis != null) {
 
-                    System.out.printf("(%d) Esquerda%n", x);
+                    //System.out.printf("(%d) Esquerda%n", x);
                     possibilidades.put(x,disponiveis);
                     x++;
 
@@ -102,7 +102,7 @@ public class Grid {
                 disponiveis = checarDisponibilidade(coluna, coluna+tamanho, linha, linha);
                 if (disponiveis != null) {
 
-                    System.out.printf("(%d) Direita%n", x);
+                    //System.out.printf("(%d) Direita%n", x);
                     
                     possibilidades.put(x,disponiveis);
                     x++;
@@ -116,7 +116,7 @@ public class Grid {
                 disponiveis = checarDisponibilidade(coluna, coluna, linha-tamanho, linha);
                 if (disponiveis != null) {
 
-                    System.out.printf("(%d) Cima%n", x);
+                    //System.out.printf("(%d) Cima%n", x);
                     possibilidades.put(x,disponiveis);
                     x++;
 
@@ -129,7 +129,7 @@ public class Grid {
                 disponiveis = checarDisponibilidade(coluna, coluna, linha, linha+tamanho);
                 if (disponiveis != null) {
 
-                    System.out.printf("(%d) Baixo%n", x);
+                    //System.out.printf("(%d) Baixo%n", x);
                     possibilidades.put(x,disponiveis);
                     x++;
                 }
@@ -144,7 +144,7 @@ public class Grid {
                 return true;
 
             } else {
-                System.out.println("Não há posição disponível");
+                //System.out.println("Não há posição disponível");
                 return false;
             }
 
@@ -165,13 +165,13 @@ public class Grid {
         for(int i = linhaInicial; i <= linhaFinal; i++){
             for (int j = colunaInicial; j <= colunaFinal; j++) {
 
-                if(!linhas.get(Converter.intToString(i-1)).quadrados.get(j-1).getDisponivel()){
+                if(!linhas.get(Converter.intToStringUp(i-1)).quadrados.get(j-1).getDisponivel()){
 
                     return null;
 
                 } else {
   
-                    quadrados.add(linhas.get(Converter.intToString(i-1)).quadrados.get(j-1));
+                    quadrados.add(linhas.get(Converter.intToStringUp(i-1)).quadrados.get(j-1));
 
                 }
             }
@@ -198,26 +198,26 @@ public class Grid {
 
         for(int linha = 0; linha < 10; linha++) {
             for(int coluna = 0; coluna < 10; coluna++) {
-                if(linhas.get(Converter.intToString(linha)).getQuadrados().get(coluna).equals(quadrado)) {
+                if(linhas.get(Converter.intToStringUp(linha)).getQuadrados().get(coluna).equals(quadrado)) {
 
                     if(coluna != 0) {
-                        Quadrado esquerda = linhas.get(Converter.intToString(linha)).getQuadrados().get(coluna-1);
+                        Quadrado esquerda = linhas.get(Converter.intToStringUp(linha)).getQuadrados().get(coluna-1);
                         adjacentesMap.put("left", esquerda);
                     }
                     if(coluna != 9) {
-                        Quadrado direita = linhas.get(Converter.intToString(linha)).getQuadrados().get(coluna+1);
+                        Quadrado direita = linhas.get(Converter.intToStringUp(linha)).getQuadrados().get(coluna+1);
                         adjacentesMap.put("right", direita);
 
                     }
                     if(linha != 0) {
 
-                        Quadrado cima = linhas.get(Converter.intToString(linha-1)).getQuadrados().get(coluna);
+                        Quadrado cima = linhas.get(Converter.intToStringUp(linha-1)).getQuadrados().get(coluna);
                         adjacentesMap.put("up", cima);
 
                     }
                     if(linha != 9) {
 
-                        Quadrado baixo = linhas.get(Converter.intToString(linha+1)).getQuadrados().get(coluna);
+                        Quadrado baixo = linhas.get(Converter.intToStringUp(linha+1)).getQuadrados().get(coluna);
                         adjacentesMap.put("down", baixo);
 
                     }

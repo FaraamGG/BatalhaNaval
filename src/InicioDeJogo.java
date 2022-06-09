@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class InicioDeJogo {
+public class InicioDeJogo extends Thread{
 
     Scanner scan = new Scanner(System.in);
     Grid gridAliada;
@@ -47,6 +47,11 @@ public class InicioDeJogo {
                 System.out.println("Fim de jogo");
                 break;
             }
+            try {
+                Thread.sleep(1200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             System.out.println();
             System.out.println();
@@ -54,6 +59,11 @@ public class InicioDeJogo {
             System.out.println("Turno inimigo: ");
             ia.atirar();
             gridAliada.listarGrid();
+            try {
+                Thread.sleep(1200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             turno++;
             if (checarVidaAliada()) {
                 System.out.println("Fim de jogo");
@@ -103,18 +113,37 @@ public class InicioDeJogo {
         System.out.println("Onde você deseja atacar?");
 
         String linha;
-        int coluna;
+        int coluna = 0;
         boolean valido;
 
         do {
 
-            if(turno != 0)
-                scan.nextLine();
+            //if(turno != 0)
+                //scan.nextLine();
 
-            System.out.print("Linha: ");
-            linha = scan.nextLine();
-            System.out.print("Coluna: ");
-            coluna = scan.nextInt();
+
+            do {
+
+                System.out.print("Linha: ");
+                linha = scan.nextLine();
+
+            } while(!Converter.checarValidade(linha));
+            
+            boolean errado = true;
+
+            do {
+
+                try {
+
+                    System.out.print("Coluna: ");
+                    coluna = Integer.parseInt(scan.nextLine());
+                    errado = false;
+
+                } catch(Exception e) {
+
+                }
+
+            } while (errado && coluna < 1 && coluna > 10);
 
             valido = gridInimiga.quadradoFoiAtingido(linha, coluna);
 
@@ -166,7 +195,7 @@ public class InicioDeJogo {
             }
 
             Linha linha = new Linha(quadrados);
-            linhas.put(Converter.intToString(i), linha);
+            linhas.put(Converter.intToStringUp(i), linha);
 
         }
 
@@ -190,7 +219,7 @@ public class InicioDeJogo {
             }
 
             Linha linha = new Linha(quadrados);
-            linhas.put(Converter.intToString(i), linha);
+            linhas.put(Converter.intToStringUp(i), linha);
 
         }
 
