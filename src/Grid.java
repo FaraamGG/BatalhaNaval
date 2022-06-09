@@ -24,6 +24,23 @@ public class Grid {
 
     }
 
+    public Grid(Map<String, Linha> linhas, Navio[] frota) {
+
+        this.linhas = linhas;
+        
+        this.frota[0] = frota[0];
+        this.frota[1] = frota[1];
+        this.frota[2] = frota[2];
+        this.frota[3] = frota[3];
+        this.frota[4] = frota[4];
+        this.frota[5] = frota[5];
+
+    }
+
+    public Map<String, Linha> getLinhas() {
+        return linhas;
+    }
+
     public Navio[] getNavios() {
         return frota;
     }

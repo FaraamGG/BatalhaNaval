@@ -28,6 +28,16 @@ public class IA {
 
     }
 
+    /*public String getDados() {
+
+        String linha = String.format("%s;%s;%s;", 
+        (hunterMode ? "true":"false"),
+        (direcao == Direcao.RANDOM ? "random" : (direcao == Direcao.HORIZONTAL ? "horizontal" : "vertical")),
+        (navioAlvo.getNome())
+        );
+
+    }*/
+
     public void atirar() {
 
         String linha;

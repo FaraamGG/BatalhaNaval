@@ -6,21 +6,42 @@ import java.util.Scanner;
 public class InicioDeJogo extends Thread{
 
     Scanner scan = new Scanner(System.in);
-    Grid gridAliada;
-    Grid gridInimiga;
+    private Grid gridAliada;
+    private Grid gridInimiga;
     IA ia;
     int turno;
 
     public InicioDeJogo() {
 
+        System.out.println("(1) Novo Jogo");
+        System.out.println("(2) Carregar Jogo");
+
+        int opt = scan.nextInt();
+        scan.nextLine();
+
+        if (opt == 1) {
+
+            criarGrids();
+            posicionarNavios();
+            ia = new IA(gridAliada);
+
+        } else {
+
+            Save.carregarJogo(this);
+            ia = new IA(gridAliada);
+
+        }
+        
+        
+        
+
         turno = 0;
-        
-        criarGrids();
-        posicionarNavios();
-        ia = new IA(gridAliada);
-        
         combate();
 
+    }
+
+    public IA getIa() {
+        return ia;
     }
 
     public void mostrarGrids() {
@@ -124,8 +145,11 @@ public class InicioDeJogo extends Thread{
 
             do {
 
-                System.out.print("Linha: ");
+                System.out.print("Linha (x para salvar): ");
                 linha = scan.nextLine();
+                if (linha.equals("x")) {
+                    Save salvamento = new Save(this);
+                }
 
             } while(!Converter.checarValidade(linha));
             
@@ -170,6 +194,11 @@ public class InicioDeJogo extends Thread{
 
         return gridAliada;
         
+    }
+
+    public void setGrids(Grid gridAliada, Grid gridInimiga) {
+        this.gridAliada = gridAliada;
+        this.gridInimiga = gridInimiga;
     }
 
     private void criarGrids() {

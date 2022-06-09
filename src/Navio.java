@@ -12,6 +12,14 @@ public class Navio {
 
     }
 
+    public Navio(String nome, String tamanho, String vida) {
+
+        this.nome = nome;
+        this.tamanho = Integer.parseInt(tamanho);
+        this.vida = Integer.parseInt(vida);
+
+    }
+
     public String getNome() {
 
         return nome;

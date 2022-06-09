@@ -13,6 +13,12 @@ public class GridInimiga extends Grid{
 
     }
 
+    public GridInimiga(Map<String, Linha> linhas, Navio[] frota) {
+
+        super(linhas, frota);
+
+    }
+
     public void listarGrid() {
 
         System.out.println("     1     2     3     4     5     6     7     8     9     10");
@@ -26,15 +32,15 @@ public class GridInimiga extends Grid{
 
                 if(quadrado.getNavio() == true && quadrado.getAtingido() == true) {
 
-                    System.out.printf(" %2s  |","💥"); 
+                    System.out.printf(" %2s  |",(quadrado.tipoNavio().getVida() > 0 ? "💥" : "💀")); 
 
                 } else if (quadrado.getAtingido() == true){
 
-                    System.out.printf(" %2s  |", "⚔");
+                    System.out.printf(" %2s  |",  "💣");
 
                 } else {
 
-                    System.out.printf(" %2s  |", "≋");
+                    System.out.printf(" %2s  |", "🌊");
 
                 }
 

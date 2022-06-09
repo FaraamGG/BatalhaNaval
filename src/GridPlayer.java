@@ -13,6 +13,12 @@ public class GridPlayer extends Grid{
 
     }
 
+    public GridPlayer(Map<String, Linha> linhas, Navio[] frota) {
+
+        super(linhas, frota);
+
+    }
+
     public void listarGrid() {
 
         System.out.println("     1     2     3     4     5     6     7     8     9     10");
@@ -29,16 +35,16 @@ public class GridPlayer extends Grid{
                     System.out.printf(" %2s  |","💥"); 
 
                 } else if (quadrado.getNavio() == true) {
-                    
+                    //
                     System.out.printf(" %2s  |","🚢"); 
 
                 } else if (quadrado.getAtingido() == true){
 
-                    System.out.printf(" %2s  |", "⚔");
+                    System.out.printf(" %2s  |", "💣");
 
                 } else {
 
-                    System.out.printf(" %2s  |", "≋");
+                    System.out.printf(" %2s  |", "🌊");
 
                 }
 
